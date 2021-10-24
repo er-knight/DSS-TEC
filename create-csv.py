@@ -17,7 +17,7 @@ def create_csv(excel_file_path: str, country_name: str) -> str:
 
     columns_to_drop = ["Series Name", "Series Code", "Country Name", "Country Code"]
 
-    excel_data    = pd.read_excel(excel_file_path, sheet_name="Data")
+    excel_data    = pd.read_excel(excel_file_path, sheet_name="Data", na_values=[".."])
     country_data  = excel_data[excel_data["Country Name"] == country_name]
     required_data = {"Years" : [year for year in range(1990, 2021)]}
 
