@@ -1,1 +1,1 @@
-# DSS-TEC
+## Data Science and Statistics TEC
