@@ -10,8 +10,8 @@ Files for Data Science and Statistics TEC
     - `Inflation, GDP deflator (annual %)`
     - `Inflation, consumer prices (annual %)`
 - Plot Histogram, Boxplot and Density Curve of above 4 variables and Infer the plots
-- ~~Test Null Average `Inflation, consumer prices (annual %)` and `GDP growth (annual %)` are equal. Find mean of each variable, Identify test, Conduct and Infer test~~
-- ~~Test Null Average `GDP growth (annual %)`, `Inflation, GDP deflator (annual %)`, `Inflation, consumer prices (annual %)` and `Population growth (annual %)` are equal. Find mean of each variable, Identify test, Conduct and Infer test~~
+- Test Null Hypothesis: Average of `Inflation, consumer prices (annual %)` and `GDP growth (annual %)` is equal, Find mean of each variable, Identify test, Conduct and Infer test
+- Test Null Hypothesis: Average `GDP growth (annual %)`, `Inflation, GDP deflator (annual %)`, `Inflation, consumer prices (annual %)` and `Population growth (annual %)` are equal, Find mean of each variable, Identify test, Conduct and Infer test
 - Plot Scatter Plot of `GDP growth (annual %)`, `Inflation, GDP deflator (annual %)` and Infer
 - Calculate Correlation & Covariance of above 4 variables and Infer
 - Consider variables `Exports of goods and services (% of GDP)` and `Imports of goods and services (% of GDP)`. Analyse the 2 variables over time and Perform Trend Analysis
