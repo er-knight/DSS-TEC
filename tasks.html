@@ -14520,6 +14520,7 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
 </pre></div>
 
      </div>
@@ -14951,7 +14952,7 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check na-values</span>
 
-<span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14973,57 +14974,57 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>Years                                                                                                0
-Population, total                                                                                    0
-Population growth (annual %)                                                                         0
-Surface area (sq. km)                                                                                2
-Poverty headcount ratio at national poverty lines (% of population)                                 25
-GNI, Atlas method (current US$)                                                                      0
-GNI per capita, Atlas method (current US$)                                                           0
-GNI, PPP (current international $)                                                                   0
-GNI per capita, PPP (current international $)                                                        0
-Income share held by lowest 20%                                                                     24
-Life expectancy at birth, total (years)                                                              1
-Fertility rate, total (births per woman)                                                             1
-Adolescent fertility rate (births per 1,000 women ages 15-19)                                        1
-Contraceptive prevalence, any methods (% of women ages 15-49)                                       14
-Births attended by skilled health staff (% of total)                                                22
-Mortality rate, under-5 (per 1,000 live births)                                                      1
-Prevalence of underweight, weight for age (% of children under 5)                                   21
-Immunization, measles (% of children ages 12-23 months)                                              1
-Primary completion rate, total (% of relevant age group)                                            16
-School enrollment, secondary (% gross)                                                               7
-School enrollment, primary and secondary (gross), gender parity index (GPI)                         14
-Prevalence of HIV, total (% of population ages 15-49)                                                1
-Forest area (sq. km)                                                                                 2
+<pre>High-technology exports (% of manufactured exports)                                                 28
 Water productivity, total (constant 2010 US$ GDP per cubic meter of total freshwater withdrawal)    28
-Energy use (kg of oil equivalent per capita)                                                         6
-CO2 emissions (metric tons per capita)                                                               2
-Electric power consumption (kWh per capita)                                                          6
-GDP (current US$)                                                                                    0
-GDP growth (annual %)                                                                                0
-Inflation, GDP deflator (annual %)                                                                   0
-Agriculture, forestry, and fishing, value added (% of GDP)                                           0
-Industry (including construction), value added (% of GDP)                                            0
-Exports of goods and services (% of GDP)                                                             0
-Imports of goods and services (% of GDP)                                                             0
-Gross capital formation (% of GDP)                                                                   0
-Revenue, excluding grants (% of GDP)                                                                 1
+Poverty headcount ratio at national poverty lines (% of population)                                 25
+Net migration                                                                                       25
+Income share held by lowest 20%                                                                     24
+Births attended by skilled health staff (% of total)                                                22
+Prevalence of underweight, weight for age (% of children under 5)                                   21
+Primary completion rate, total (% of relevant age group)                                            16
+School enrollment, primary and secondary (gross), gender parity index (GPI)                         14
 Start-up procedures to register a business (number)                                                 14
+Contraceptive prevalence, any methods (% of women ages 15-49)                                       14
+School enrollment, secondary (% gross)                                                               7
 Market capitalization of listed domestic companies (% of GDP)                                        6
+Energy use (kg of oil equivalent per capita)                                                         6
+Electric power consumption (kWh per capita)                                                          6
+CO2 emissions (metric tons per capita)                                                               2
+Surface area (sq. km)                                                                                2
+Personal remittances, paid (current US$)                                                             2
+Forest area (sq. km)                                                                                 2
+Adolescent fertility rate (births per 1,000 women ages 15-19)                                        1
 Military expenditure (% of GDP)                                                                      1
 Mobile cellular subscriptions (per 100 people)                                                       1
-High-technology exports (% of manufactured exports)                                                 28
-Merchandise trade (% of GDP)                                                                         0
 Net barter terms of trade index (2000 = 100)                                                         1
 External debt stocks, total (DOD, current US$)                                                       1
 Total debt service (% of GNI)                                                                        1
-Net migration                                                                                       25
-Personal remittances, paid (current US$)                                                             2
-Foreign direct investment, net inflows (BoP, current US$)                                            1
+Mortality rate, under-5 (per 1,000 live births)                                                      1
 Net ODA received per capita (current US$)                                                            1
+Foreign direct investment, net inflows (BoP, current US$)                                            1
+Prevalence of HIV, total (% of population ages 15-49)                                                1
+Life expectancy at birth, total (years)                                                              1
+Fertility rate, total (births per woman)                                                             1
+Immunization, measles (% of children ages 12-23 months)                                              1
+Revenue, excluding grants (% of GDP)                                                                 1
 GDP per capita (current US$)                                                                         0
+Merchandise trade (% of GDP)                                                                         0
 Foreign direct investment, net (BoP, current US$)                                                    0
+Years                                                                                                0
+Gross capital formation (% of GDP)                                                                   0
+Imports of goods and services (% of GDP)                                                             0
+Exports of goods and services (% of GDP)                                                             0
+Industry (including construction), value added (% of GDP)                                            0
+Agriculture, forestry, and fishing, value added (% of GDP)                                           0
+Inflation, GDP deflator (annual %)                                                                   0
+GDP growth (annual %)                                                                                0
+GDP (current US$)                                                                                    0
+Population, total                                                                                    0
+GNI per capita, PPP (current international $)                                                        0
+GNI, PPP (current international $)                                                                   0
+GNI per capita, Atlas method (current US$)                                                           0
+GNI, Atlas method (current US$)                                                                      0
+Population growth (annual %)                                                                         0
 Inflation, consumer prices (annual %)                                                                0
 dtype: int64</pre>
 </div>
@@ -17168,6 +17169,43 @@ Name: Inflation, consumer prices (annual %), dtype: float64</pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">st</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;Inflation, consumer prices (annual %)&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;GDP growth (annual %)&quot;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>F_onewayResult(statistic=2.503815853924911, pvalue=0.11882831595888826)</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;GDP growth (annual %)&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Inflation, GDP deflator (annual %)&quot;</span><span class="p">])</span>
 </pre></div>
 
@@ -17190,7 +17228,7 @@ Name: Inflation, consumer prices (annual %), dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.collections.PathCollection at 0x7ff01d60df10&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x7fa5bce67d90&gt;</pre>
 </div>
 
 </div>
