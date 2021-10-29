@@ -15035,20 +15035,102 @@ dtype: int64</pre>
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># replace missing values with mean (in case of numerical values)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fill na-values with mean of particular column</span>
 
-<span class="n">data</span><span class="p">[</span><span class="s2">&quot;CO2 emissions (metric tons per capita)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;CO2 emissions (metric tons per capita)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">na_columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">column_name</span> <span class="k">for</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span> 
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="n">na_columns</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>Years                                                                                               0
+Population, total                                                                                   0
+GDP growth (annual %)                                                                               0
+Inflation, GDP deflator (annual %)                                                                  0
+Agriculture, forestry, and fishing, value added (% of GDP)                                          0
+Industry (including construction), value added (% of GDP)                                           0
+Exports of goods and services (% of GDP)                                                            0
+Imports of goods and services (% of GDP)                                                            0
+Gross capital formation (% of GDP)                                                                  0
+Revenue, excluding grants (% of GDP)                                                                0
+Start-up procedures to register a business (number)                                                 0
+Market capitalization of listed domestic companies (% of GDP)                                       0
+Military expenditure (% of GDP)                                                                     0
+Mobile cellular subscriptions (per 100 people)                                                      0
+High-technology exports (% of manufactured exports)                                                 0
+Merchandise trade (% of GDP)                                                                        0
+Net barter terms of trade index (2000 = 100)                                                        0
+External debt stocks, total (DOD, current US$)                                                      0
+Total debt service (% of GNI)                                                                       0
+Net migration                                                                                       0
+Personal remittances, paid (current US$)                                                            0
+Foreign direct investment, net inflows (BoP, current US$)                                           0
+Net ODA received per capita (current US$)                                                           0
+GDP per capita (current US$)                                                                        0
+Foreign direct investment, net (BoP, current US$)                                                   0
+GDP (current US$)                                                                                   0
+Electric power consumption (kWh per capita)                                                         0
+CO2 emissions (metric tons per capita)                                                              0
+Adolescent fertility rate (births per 1,000 women ages 15-19)                                       0
+Population growth (annual %)                                                                        0
+Surface area (sq. km)                                                                               0
+Poverty headcount ratio at national poverty lines (% of population)                                 0
+GNI, Atlas method (current US$)                                                                     0
+GNI per capita, Atlas method (current US$)                                                          0
+GNI, PPP (current international $)                                                                  0
+GNI per capita, PPP (current international $)                                                       0
+Income share held by lowest 20%                                                                     0
+Life expectancy at birth, total (years)                                                             0
+Fertility rate, total (births per woman)                                                            0
+Contraceptive prevalence, any methods (% of women ages 15-49)                                       0
+Energy use (kg of oil equivalent per capita)                                                        0
+Births attended by skilled health staff (% of total)                                                0
+Mortality rate, under-5 (per 1,000 live births)                                                     0
+Prevalence of underweight, weight for age (% of children under 5)                                   0
+Immunization, measles (% of children ages 12-23 months)                                             0
+Primary completion rate, total (% of relevant age group)                                            0
+School enrollment, secondary (% gross)                                                              0
+School enrollment, primary and secondary (gross), gender parity index (GPI)                         0
+Prevalence of HIV, total (% of population ages 15-49)                                               0
+Forest area (sq. km)                                                                                0
+Water productivity, total (constant 2010 US$ GDP per cubic meter of total freshwater withdrawal)    0
+Inflation, consumer prices (annual %)                                                               0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -17206,6 +17288,43 @@ Name: Inflation, consumer prices (annual %), dtype: float64</pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">st</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;GDP growth (annual %)&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Inflation, GDP deflator (annual %)&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Inflation, consumer prices (annual %)&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Population growth (annual %)&quot;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>F_onewayResult(statistic=8.281796106117323, pvalue=4.723620800370351e-05)</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;GDP growth (annual %)&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Inflation, GDP deflator (annual %)&quot;</span><span class="p">])</span>
 </pre></div>
 
@@ -17228,7 +17347,7 @@ Name: Inflation, consumer prices (annual %), dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.collections.PathCollection at 0x7fa5bce67d90&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x7fda8956dd60&gt;</pre>
 </div>
 
 </div>
