@@ -16,7 +16,7 @@ Files for Data Science and Statistics TEC
 - [ ] Calculate Correlation & Covariance of above 4 variables and Infer
 - [ ] Consider variables `Exports of goods and services (% of GDP)` and `Imports of goods and services (% of GDP)`. Analyse the 2 variables over time and Perform Trend Analysis
 - [ ] Analyze `CO2 emissions (metric tons per capita)` and Perform Descriptive Statistics, Line Chart and Trend Analysis
-- [ ] Create a DataFrame of following variables
+- [x] Create a DataFrame of following variables
     - `Population growth (annual %)`
     - `CO2 emissions (metric tons per capita)` 
     - `GDP growth (annual %)`
