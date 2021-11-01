@@ -25,14 +25,14 @@ Files for Data Science and Statistics TEC
     - `Imports of goods and services (% of GDP)`
     - `Gross capital formation (% of GDP)`
     - `Inflation, consumer prices (annual %)`
-- [ ] Build following models with `GDP growth (annual %)` as dependent variable, Interpret R Square, Predict and Calculate residual and Compare models on RMSE
-    - [ ] Multiple Linear Regression
-    - [ ] Decision Tree Regression
-    - [ ] Random Forest Regression
+- [x] Build following models with `GDP growth (annual %)` as dependent variable, Interpret R Square, Predict and Calculate residual and Compare models on RMSE
+    - [x] Multiple Linear Regression
+    - [x] Decision Tree Regression
+    - [x] Random Forest Regression
 - [x] Identify all Healthcare Indicators, Create DataFrame and Analyze using
     - [x] Descriptive Statistics
     - [x] Data Visualization
-    - [ ] Conduct both ttest and Anova, Choose variables accordingly and Interpret test outcome
+    - [x] Conduct both ttest and Anova, Choose variables accordingly and Interpret test outcome
 - [x] Identify all Education Indicators, Create DataFrame and Analyze using
     - [x] Descriptive Statistics
     - [x] Data Visualization
