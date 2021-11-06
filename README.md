@@ -2,7 +2,7 @@
 Files for Data Science and Statistics TEC
 
 ## Instructions
-- [x] Import data into Python
+- [x] Import data into Jupyter Notebook
 - [x] Apply `head()`, `tail()`, `shape`, `columns`, `dtypes`, `describe()` on data
 - [x] Apply `describe()` on following columns 
     - `Population growth (annual %)`
