@@ -15046,15 +15046,64 @@ dtype: int64</pre>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fill NA Values with Mean of Particular Column</span>
+<span class="c1"># Drop Column if 70% Values are missing </span>
 
 <span class="n">na_columns</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">column</span> <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span> 
+    <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span> 
 <span class="p">]</span>
 
-<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">na_columns</span><span class="p">:</span>
-    <span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dropped_columns</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="nb">all</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># verify there are no na-values</span>
+<span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">na_columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">dropped_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">dropped_columns</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[&#39;High-technology exports (% of manufactured exports)&#39;,
+ &#39;Water productivity, total (constant 2010 US$ GDP per cubic meter of total freshwater withdrawal)&#39;,
+ &#39;Poverty headcount ratio at national poverty lines (% of population)&#39;,
+ &#39;Net migration&#39;,
+ &#39;Income share held by lowest 20%&#39;,
+ &#39;Births attended by skilled health staff (% of total)&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">all</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># verify there are no na-values</span>
 </pre></div>
 
      </div>
@@ -15113,7 +15162,7 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>(31, 52)</pre>
+<pre>(31, 46)</pre>
 </div>
 
 </div>
@@ -15151,18 +15200,14 @@ dtype: int64</pre>
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
 <pre>Index([&#39;Years&#39;, &#39;Population, total&#39;, &#39;Population growth (annual %)&#39;,
-       &#39;Surface area (sq. km)&#39;,
-       &#39;Poverty headcount ratio at national poverty lines (% of population)&#39;,
-       &#39;GNI, Atlas method (current US$)&#39;,
+       &#39;Surface area (sq. km)&#39;, &#39;GNI, Atlas method (current US$)&#39;,
        &#39;GNI per capita, Atlas method (current US$)&#39;,
        &#39;GNI, PPP (current international $)&#39;,
        &#39;GNI per capita, PPP (current international $)&#39;,
-       &#39;Income share held by lowest 20%&#39;,
        &#39;Life expectancy at birth, total (years)&#39;,
        &#39;Fertility rate, total (births per woman)&#39;,
        &#39;Adolescent fertility rate (births per 1,000 women ages 15-19)&#39;,
        &#39;Contraceptive prevalence, any methods (% of women ages 15-49)&#39;,
-       &#39;Births attended by skilled health staff (% of total)&#39;,
        &#39;Mortality rate, under-5 (per 1,000 live births)&#39;,
        &#39;Prevalence of underweight, weight for age (% of children under 5)&#39;,
        &#39;Immunization, measles (% of children ages 12-23 months)&#39;,
@@ -15170,9 +15215,7 @@ dtype: int64</pre>
        &#39;School enrollment, secondary (% gross)&#39;,
        &#39;School enrollment, primary and secondary (gross), gender parity index (GPI)&#39;,
        &#39;Prevalence of HIV, total (% of population ages 15-49)&#39;,
-       &#39;Forest area (sq. km)&#39;,
-       &#39;Water productivity, total (constant 2010 US$ GDP per cubic meter of total freshwater withdrawal)&#39;,
-       &#39;Energy use (kg of oil equivalent per capita)&#39;,
+       &#39;Forest area (sq. km)&#39;, &#39;Energy use (kg of oil equivalent per capita)&#39;,
        &#39;CO2 emissions (metric tons per capita)&#39;,
        &#39;Electric power consumption (kWh per capita)&#39;, &#39;GDP (current US$)&#39;,
        &#39;GDP growth (annual %)&#39;, &#39;Inflation, GDP deflator (annual %)&#39;,
@@ -15186,11 +15229,10 @@ dtype: int64</pre>
        &#39;Market capitalization of listed domestic companies (% of GDP)&#39;,
        &#39;Military expenditure (% of GDP)&#39;,
        &#39;Mobile cellular subscriptions (per 100 people)&#39;,
-       &#39;High-technology exports (% of manufactured exports)&#39;,
        &#39;Merchandise trade (% of GDP)&#39;,
        &#39;Net barter terms of trade index (2000 = 100)&#39;,
        &#39;External debt stocks, total (DOD, current US$)&#39;,
-       &#39;Total debt service (% of GNI)&#39;, &#39;Net migration&#39;,
+       &#39;Total debt service (% of GNI)&#39;,
        &#39;Personal remittances, paid (current US$)&#39;,
        &#39;Foreign direct investment, net inflows (BoP, current US$)&#39;,
        &#39;Net ODA received per capita (current US$)&#39;,
@@ -15234,58 +15276,52 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>Years                                                                                                 int64
-Population, total                                                                                   float64
-Population growth (annual %)                                                                        float64
-Surface area (sq. km)                                                                               float64
-Poverty headcount ratio at national poverty lines (% of population)                                 float64
-GNI, Atlas method (current US$)                                                                     float64
-GNI per capita, Atlas method (current US$)                                                          float64
-GNI, PPP (current international $)                                                                  float64
-GNI per capita, PPP (current international $)                                                       float64
-Income share held by lowest 20%                                                                     float64
-Life expectancy at birth, total (years)                                                             float64
-Fertility rate, total (births per woman)                                                            float64
-Adolescent fertility rate (births per 1,000 women ages 15-19)                                       float64
-Contraceptive prevalence, any methods (% of women ages 15-49)                                       float64
-Births attended by skilled health staff (% of total)                                                float64
-Mortality rate, under-5 (per 1,000 live births)                                                     float64
-Prevalence of underweight, weight for age (% of children under 5)                                   float64
-Immunization, measles (% of children ages 12-23 months)                                             float64
-Primary completion rate, total (% of relevant age group)                                            float64
-School enrollment, secondary (% gross)                                                              float64
-School enrollment, primary and secondary (gross), gender parity index (GPI)                         float64
-Prevalence of HIV, total (% of population ages 15-49)                                               float64
-Forest area (sq. km)                                                                                float64
-Water productivity, total (constant 2010 US$ GDP per cubic meter of total freshwater withdrawal)    float64
-Energy use (kg of oil equivalent per capita)                                                        float64
-CO2 emissions (metric tons per capita)                                                              float64
-Electric power consumption (kWh per capita)                                                         float64
-GDP (current US$)                                                                                   float64
-GDP growth (annual %)                                                                               float64
-Inflation, GDP deflator (annual %)                                                                  float64
-Agriculture, forestry, and fishing, value added (% of GDP)                                          float64
-Industry (including construction), value added (% of GDP)                                           float64
-Exports of goods and services (% of GDP)                                                            float64
-Imports of goods and services (% of GDP)                                                            float64
-Gross capital formation (% of GDP)                                                                  float64
-Revenue, excluding grants (% of GDP)                                                                float64
-Start-up procedures to register a business (number)                                                 float64
-Market capitalization of listed domestic companies (% of GDP)                                       float64
-Military expenditure (% of GDP)                                                                     float64
-Mobile cellular subscriptions (per 100 people)                                                      float64
-High-technology exports (% of manufactured exports)                                                 float64
-Merchandise trade (% of GDP)                                                                        float64
-Net barter terms of trade index (2000 = 100)                                                        float64
-External debt stocks, total (DOD, current US$)                                                      float64
-Total debt service (% of GNI)                                                                       float64
-Net migration                                                                                       float64
-Personal remittances, paid (current US$)                                                            float64
-Foreign direct investment, net inflows (BoP, current US$)                                           float64
-Net ODA received per capita (current US$)                                                           float64
-GDP per capita (current US$)                                                                        float64
-Foreign direct investment, net (BoP, current US$)                                                   float64
-Inflation, consumer prices (annual %)                                                               float64
+<pre>Years                                                                            int64
+Population, total                                                              float64
+Population growth (annual %)                                                   float64
+Surface area (sq. km)                                                          float64
+GNI, Atlas method (current US$)                                                float64
+GNI per capita, Atlas method (current US$)                                     float64
+GNI, PPP (current international $)                                             float64
+GNI per capita, PPP (current international $)                                  float64
+Life expectancy at birth, total (years)                                        float64
+Fertility rate, total (births per woman)                                       float64
+Adolescent fertility rate (births per 1,000 women ages 15-19)                  float64
+Contraceptive prevalence, any methods (% of women ages 15-49)                  float64
+Mortality rate, under-5 (per 1,000 live births)                                float64
+Prevalence of underweight, weight for age (% of children under 5)              float64
+Immunization, measles (% of children ages 12-23 months)                        float64
+Primary completion rate, total (% of relevant age group)                       float64
+School enrollment, secondary (% gross)                                         float64
+School enrollment, primary and secondary (gross), gender parity index (GPI)    float64
+Prevalence of HIV, total (% of population ages 15-49)                          float64
+Forest area (sq. km)                                                           float64
+Energy use (kg of oil equivalent per capita)                                   float64
+CO2 emissions (metric tons per capita)                                         float64
+Electric power consumption (kWh per capita)                                    float64
+GDP (current US$)                                                              float64
+GDP growth (annual %)                                                          float64
+Inflation, GDP deflator (annual %)                                             float64
+Agriculture, forestry, and fishing, value added (% of GDP)                     float64
+Industry (including construction), value added (% of GDP)                      float64
+Exports of goods and services (% of GDP)                                       float64
+Imports of goods and services (% of GDP)                                       float64
+Gross capital formation (% of GDP)                                             float64
+Revenue, excluding grants (% of GDP)                                           float64
+Start-up procedures to register a business (number)                            float64
+Market capitalization of listed domestic companies (% of GDP)                  float64
+Military expenditure (% of GDP)                                                float64
+Mobile cellular subscriptions (per 100 people)                                 float64
+Merchandise trade (% of GDP)                                                   float64
+Net barter terms of trade index (2000 = 100)                                   float64
+External debt stocks, total (DOD, current US$)                                 float64
+Total debt service (% of GNI)                                                  float64
+Personal remittances, paid (current US$)                                       float64
+Foreign direct investment, net inflows (BoP, current US$)                      float64
+Net ODA received per capita (current US$)                                      float64
+GDP per capita (current US$)                                                   float64
+Foreign direct investment, net (BoP, current US$)                              float64
+Inflation, consumer prices (annual %)                                          float64
 dtype: object</pre>
 </div>
 
@@ -15344,17 +15380,17 @@ dtype: object</pre>
       <th>Population, total</th>
       <th>Population growth (annual %)</th>
       <th>Surface area (sq. km)</th>
-      <th>Poverty headcount ratio at national poverty lines (% of population)</th>
       <th>GNI, Atlas method (current US$)</th>
       <th>GNI per capita, Atlas method (current US$)</th>
       <th>GNI, PPP (current international $)</th>
       <th>GNI per capita, PPP (current international $)</th>
-      <th>Income share held by lowest 20%</th>
+      <th>Life expectancy at birth, total (years)</th>
+      <th>Fertility rate, total (births per woman)</th>
       <th>...</th>
+      <th>Merchandise trade (% of GDP)</th>
       <th>Net barter terms of trade index (2000 = 100)</th>
       <th>External debt stocks, total (DOD, current US$)</th>
       <th>Total debt service (% of GNI)</th>
-      <th>Net migration</th>
       <th>Personal remittances, paid (current US$)</th>
       <th>Foreign direct investment, net inflows (BoP, current US$)</th>
       <th>Net ODA received per capita (current US$)</th>
@@ -15370,17 +15406,17 @@ dtype: object</pre>
       <td>3.100000e+01</td>
       <td>31.000000</td>
       <td>31.0</td>
-      <td>31.000000</td>
       <td>3.100000e+01</td>
       <td>31.000000</td>
       <td>3.100000e+01</td>
+      <td>31.000000</td>
       <td>31.000000</td>
       <td>31.000000</td>
       <td>...</td>
       <td>31.000000</td>
-      <td>3.100000e+01</td>
       <td>31.000000</td>
       <td>3.100000e+01</td>
+      <td>31.000000</td>
       <td>3.100000e+01</td>
       <td>3.100000e+01</td>
       <td>31.000000</td>
@@ -15394,17 +15430,17 @@ dtype: object</pre>
       <td>8.598457e+07</td>
       <td>1.924699</td>
       <td>300000.0</td>
-      <td>23.866667</td>
       <td>1.806399e+11</td>
       <td>1935.483871</td>
       <td>4.966861e+11</td>
       <td>5404.838710</td>
-      <td>5.371429</td>
+      <td>69.183067</td>
+      <td>3.479000</td>
       <td>...</td>
+      <td>62.438295</td>
       <td>85.041630</td>
       <td>5.802360e+10</td>
       <td>6.087771</td>
-      <td>-9.351722e+05</td>
       <td>1.070997e+08</td>
       <td>2.894127e+09</td>
       <td>8.008823</td>
@@ -15418,17 +15454,17 @@ dtype: object</pre>
       <td>1.457651e+07</td>
       <td>0.367034</td>
       <td>0.0</td>
-      <td>1.502590</td>
       <td>1.243153e+11</td>
       <td>1062.948223</td>
       <td>2.895498e+11</td>
       <td>2336.007807</td>
-      <td>0.183874</td>
+      <td>1.225703</td>
+      <td>0.528319</td>
       <td>...</td>
+      <td>17.531198</td>
       <td>7.782362</td>
       <td>1.426273e+10</td>
       <td>2.872746</td>
-      <td>1.728864e+05</td>
       <td>7.982478e+07</td>
       <td>2.836030e+09</td>
       <td>5.965226</td>
@@ -15442,17 +15478,17 @@ dtype: object</pre>
       <td>6.189517e+07</td>
       <td>1.345430</td>
       <td>300000.0</td>
-      <td>16.700000</td>
       <td>4.485608e+10</td>
       <td>720.000000</td>
       <td>1.624582e+11</td>
       <td>2620.000000</td>
-      <td>5.000000</td>
+      <td>66.366000</td>
+      <td>2.526000</td>
       <td>...</td>
+      <td>42.717994</td>
       <td>73.519289</td>
       <td>3.057985e+10</td>
       <td>1.844707</td>
-      <td>-1.548077e+06</td>
       <td>5.000000e+06</td>
       <td>2.280000e+08</td>
       <td>-1.421680</td>
@@ -15466,17 +15502,17 @@ dtype: object</pre>
       <td>7.385144e+07</td>
       <td>1.654911</td>
       <td>300000.0</td>
-      <td>23.866667</td>
       <td>8.958988e+10</td>
       <td>1155.000000</td>
       <td>2.631099e+11</td>
       <td>3560.000000</td>
-      <td>5.371429</td>
+      <td>68.624500</td>
+      <td>3.088000</td>
       <td>...</td>
+      <td>47.681068</td>
       <td>79.641086</td>
       <td>5.215702e+10</td>
       <td>3.385278</td>
-      <td>-9.351722e+05</td>
       <td>2.450000e+07</td>
       <td>1.230000e+09</td>
       <td>5.087490</td>
@@ -15490,17 +15526,17 @@ dtype: object</pre>
       <td>8.632625e+07</td>
       <td>1.889365</td>
       <td>300000.0</td>
-      <td>23.866667</td>
       <td>1.188285e+11</td>
       <td>1380.000000</td>
       <td>4.140994e+11</td>
       <td>4800.000000</td>
-      <td>5.371429</td>
+      <td>69.112000</td>
+      <td>3.504000</td>
       <td>...</td>
+      <td>54.842838</td>
       <td>82.844959</td>
       <td>5.848070e+10</td>
       <td>6.087771</td>
-      <td>-9.351722e+05</td>
       <td>1.070997e+08</td>
       <td>1.769000e+09</td>
       <td>6.943141</td>
@@ -15514,17 +15550,17 @@ dtype: object</pre>
       <td>9.804210e+07</td>
       <td>2.239151</td>
       <td>300000.0</td>
-      <td>23.866667</td>
       <td>2.954201e+11</td>
       <td>3010.000000</td>
       <td>7.052957e+11</td>
       <td>7190.000000</td>
-      <td>5.371429</td>
+      <td>70.066500</td>
+      <td>3.904000</td>
       <td>...</td>
+      <td>81.407006</td>
       <td>91.290705</td>
       <td>6.615735e+10</td>
       <td>8.058670</td>
-      <td>-9.351722e+05</td>
       <td>1.681521e+08</td>
       <td>3.067070e+09</td>
       <td>8.703621</td>
@@ -15538,17 +15574,17 @@ dtype: object</pre>
       <td>1.095811e+08</td>
       <td>2.543417</td>
       <td>300000.0</td>
-      <td>26.600000</td>
       <td>4.162174e+11</td>
       <td>3850.000000</td>
       <td>1.105173e+12</td>
       <td>10220.000000</td>
-      <td>6.200000</td>
+      <td>71.231000</td>
+      <td>4.320000</td>
       <td>...</td>
+      <td>90.542019</td>
       <td>102.884615</td>
       <td>8.366100e+10</td>
       <td>11.054611</td>
-      <td>-3.357580e+05</td>
       <td>2.585236e+08</td>
       <td>1.025644e+10</td>
       <td>25.168361</td>
@@ -15558,7 +15594,7 @@ dtype: object</pre>
     </tr>
   </tbody>
 </table>
-<p>8 rows × 52 columns</p>
+<p>8 rows × 46 columns</p>
 </div>
 </div>
 
@@ -17158,7 +17194,7 @@ Name: Inflation, consumer prices (annual %), dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.legend.Legend at 0x7fc58353c8b0&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7fc398cd7d90&gt;</pre>
 </div>
 
 </div>
@@ -18072,7 +18108,7 @@ Name: GDP growth (annual %), dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>0.8716266184870872</pre>
+<pre>0.85423248809844</pre>
 </div>
 
 </div>
@@ -18112,7 +18148,7 @@ Name: GDP growth (annual %), dtype: float64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>1.1884085458954998</pre>
+<pre>1.2663642625599916</pre>
 </div>
 
 </div>
@@ -18136,7 +18172,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
     <span class="s2">&quot;Fertility rate, total (births per woman)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Adolescent fertility rate (births per 1,000 women ages 15-19)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Contraceptive prevalence, any methods (</span><span class="si">% o</span><span class="s2">f women ages 15-49)&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Births attended by skilled health staff (</span><span class="si">% o</span><span class="s2">f total)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Mortality rate, under-5 (per 1,000 live births)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Prevalence of underweight, weight for age (</span><span class="si">% o</span><span class="s2">f children under 5)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Immunization, measles (</span><span class="si">% o</span><span class="s2">f children ages 12-23 months)&quot;</span><span class="p">,</span>
@@ -18200,7 +18235,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <th>Fertility rate, total (births per woman)</th>
       <th>Adolescent fertility rate (births per 1,000 women ages 15-19)</th>
       <th>Contraceptive prevalence, any methods (% of women ages 15-49)</th>
-      <th>Births attended by skilled health staff (% of total)</th>
       <th>Mortality rate, under-5 (per 1,000 live births)</th>
       <th>Prevalence of underweight, weight for age (% of children under 5)</th>
       <th>Immunization, measles (% of children ages 12-23 months)</th>
@@ -18214,7 +18248,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>4.320</td>
       <td>50.6196</td>
       <td>49.123529</td>
-      <td>64.066667</td>
       <td>56.6</td>
       <td>29.90</td>
       <td>85.0</td>
@@ -18226,7 +18259,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>4.246</td>
       <td>50.8028</td>
       <td>49.123529</td>
-      <td>64.066667</td>
       <td>53.3</td>
       <td>23.62</td>
       <td>83.0</td>
@@ -18238,7 +18270,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>4.177</td>
       <td>50.9860</td>
       <td>49.123529</td>
-      <td>64.066667</td>
       <td>50.4</td>
       <td>29.80</td>
       <td>81.0</td>
@@ -18250,7 +18281,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>4.113</td>
       <td>50.6012</td>
       <td>40.000000</td>
-      <td>52.800000</td>
       <td>47.8</td>
       <td>26.30</td>
       <td>78.0</td>
@@ -18262,7 +18292,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>4.056</td>
       <td>50.2164</td>
       <td>49.123529</td>
-      <td>64.066667</td>
       <td>45.6</td>
       <td>23.62</td>
       <td>75.0</td>
@@ -18328,7 +18357,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <th>Fertility rate, total (births per woman)</th>
       <th>Adolescent fertility rate (births per 1,000 women ages 15-19)</th>
       <th>Contraceptive prevalence, any methods (% of women ages 15-49)</th>
-      <th>Births attended by skilled health staff (% of total)</th>
       <th>Mortality rate, under-5 (per 1,000 live births)</th>
       <th>Prevalence of underweight, weight for age (% of children under 5)</th>
       <th>Immunization, measles (% of children ages 12-23 months)</th>
@@ -18346,7 +18374,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>31.000000</td>
       <td>31.000000</td>
       <td>31.000000</td>
-      <td>31.000000</td>
     </tr>
     <tr>
       <th>mean</th>
@@ -18354,7 +18381,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>3.479000</td>
       <td>53.364700</td>
       <td>49.123529</td>
-      <td>64.066667</td>
       <td>36.760000</td>
       <td>23.620000</td>
       <td>81.800000</td>
@@ -18366,7 +18392,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>0.528319</td>
       <td>2.457991</td>
       <td>2.331885</td>
-      <td>5.281666</td>
       <td>7.601254</td>
       <td>2.416995</td>
       <td>6.901208</td>
@@ -18378,7 +18403,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>2.526000</td>
       <td>49.062000</td>
       <td>40.000000</td>
-      <td>52.800000</td>
       <td>27.300000</td>
       <td>19.100000</td>
       <td>67.000000</td>
@@ -18390,7 +18414,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>3.088000</td>
       <td>50.894400</td>
       <td>49.011765</td>
-      <td>64.066667</td>
       <td>31.150000</td>
       <td>23.620000</td>
       <td>78.500000</td>
@@ -18402,7 +18425,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>3.504000</td>
       <td>54.154000</td>
       <td>49.123529</td>
-      <td>64.066667</td>
       <td>34.900000</td>
       <td>23.620000</td>
       <td>81.000000</td>
@@ -18414,7 +18436,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>3.904000</td>
       <td>55.242900</td>
       <td>49.300000</td>
-      <td>64.066667</td>
       <td>40.000000</td>
       <td>23.620000</td>
       <td>87.000000</td>
@@ -18426,7 +18447,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
       <td>4.320000</td>
       <td>57.279000</td>
       <td>55.100000</td>
-      <td>84.400000</td>
       <td>56.600000</td>
       <td>29.900000</td>
       <td>92.000000</td>
@@ -19058,162 +19078,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
 
 <div class="jp-RenderedImage jp-OutputArea-output ">
 <img src="data:image/png;base64,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"
->
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Births attended by skilled health staff (</span><span class="si">% o</span><span class="s2">f total)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;AxesSubplot:ylabel=&#39;Frequency&#39;&gt;</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedImage jp-OutputArea-output ">
-<img src="data:image/png;base64,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"
->
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Births attended by skilled health staff (</span><span class="si">% o</span><span class="s2">f total)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;AxesSubplot:&gt;</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedImage jp-OutputArea-output ">
-<img src="data:image/png;base64,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"
->
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Births attended by skilled health staff (</span><span class="si">% o</span><span class="s2">f total)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;AxesSubplot:ylabel=&#39;Density&#39;&gt;</pre>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedImage jp-OutputArea-output ">
-<img src="data:image/png;base64,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"
 >
 </div>
 
@@ -19878,7 +19742,6 @@ Name: GDP growth (annual %), dtype: float64</pre>
                          Fertility rate, total (births per woman) (mean) : 3.479
     Adolescent fertility rate (births per 1,000 women ages 15-19) (mean) : 53.3647
     Contraceptive prevalence, any methods (% of women ages 15-49) (mean) : 49.12352941176468
-             Births attended by skilled health staff (% of total) (mean) : 64.06666666666665
                   Mortality rate, under-5 (per 1,000 live births) (mean) : 36.76
 Prevalence of underweight, weight for age (% of children under 5) (mean) : 23.62
           Immunization, measles (% of children ages 12-23 months) (mean) : 81.80000000000001
@@ -19922,7 +19785,6 @@ Prevalence of underweight, weight for age (% of children under 5) (mean) : 23.62
                          Fertility rate, total (births per woman) (variance) : 0.27912073333333337
     Adolescent fertility rate (births per 1,000 women ages 15-19) (variance) : 6.041718476666672
     Contraceptive prevalence, any methods (% of women ages 15-49) (variance) : 5.437686274509806
-             Births attended by skilled health staff (% of total) (variance) : 27.89600000000001
                   Mortality rate, under-5 (per 1,000 live births) (variance) : 57.77906666666666
 Prevalence of underweight, weight for age (% of children under 5) (variance) : 5.841866666666666
           Immunization, measles (% of children ages 12-23 months) (variance) : 47.626666666666665
@@ -20022,7 +19884,7 @@ Prevalence of underweight, weight for age (% of children under 5) (variance) : 5
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Null Hypothesis: There is relationship between &quot;Life expectancy at birth, total (years)&quot;, &quot;Fertility rate, total (births per woman)&quot; and &quot;Births attended by skilled health staff (% of total)&quot;, </span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Life expectancy at birth, total (years)&quot;</span><span class="p">],</span> <span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Fertility rate, total (births per woman)&quot;</span><span class="p">],</span> <span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Births attended by skilled health staff (</span><span class="si">% o</span><span class="s2">f total)&quot;</span><span class="p">])</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Life expectancy at birth, total (years)&quot;</span><span class="p">],</span> <span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Fertility rate, total (births per woman)&quot;</span><span class="p">],</span> <span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Mortality rate, under-5 (per 1,000 live births)&quot;</span><span class="p">],</span> <span class="n">healthcare_data</span><span class="p">[</span><span class="s2">&quot;Immunization, measles (</span><span class="si">% o</span><span class="s2">f children ages 12-23 months)&quot;</span><span class="p">])</span>
 <span class="n">result</span>
 </pre></div>
 
@@ -20045,7 +19907,7 @@ Prevalence of underweight, weight for age (% of children under 5) (variance) : 5
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>F_onewayResult(statistic=4185.600981661042, pvalue=1.6086818332349667e-89)</pre>
+<pre>F_onewayResult(statistic=1426.582122869561, pvalue=1.212107910806579e-93)</pre>
 </div>
 
 </div>
